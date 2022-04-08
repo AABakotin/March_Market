@@ -26,7 +26,13 @@ angular.module('market', []).controller('indexController', function ($scope, $ht
                 $scope.fillTableCart();
             });
     }
-     $scope.deleteOneProductFromCart = function (id) {
+     $scope.deleteProductFromCart = function (id) {
+        $http.get('http://localhost:8189/market/api/v1/cart/delete_item/' + id)
+            .then(function (response) {
+                $scope.fillTableCart();
+            });
+    }
+      $scope.deleteOneProductFromCart = function (id) {
         $http.get('http://localhost:8189/market/api/v1/cart/delete/' + id)
             .then(function (response) {
                 $scope.fillTableCart();
@@ -34,7 +40,7 @@ angular.module('market', []).controller('indexController', function ($scope, $ht
     }
 
     $scope.createNewProduct = function () {
-        // console.log($scope.newProduct);
+//        console.log($scope.newProduct);
         $http.post('http://localhost:8189/market/api/v1/products', $scope.newProduct)
             .then(function (response) {
                 $scope.newProduct = null;

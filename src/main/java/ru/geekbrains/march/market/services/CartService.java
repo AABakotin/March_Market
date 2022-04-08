@@ -2,46 +2,57 @@ package ru.geekbrains.march.market.services;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import ru.geekbrains.march.market.entities.Product;
+import ru.geekbrains.march.market.exceptions.ResourceNotFoundException;
+import ru.geekbrains.march.market.utils.Cart;
+import ru.geekbrains.march.market.utils.CartItem;
 
+import javax.annotation.PostConstruct;
+import java.util.ArrayList;
 import java.util.List;
 
 
 @Service
 @Data
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class CartService {
 
     private final ProductService productService;
-    private List<Product> productList;
+    private Cart cart;
 
-    public List<Product> getAllProduct() {
-        return getProductList();
+    @PostConstruct
+    public void init() {
+        cart = new Cart();
+        cart.setItems(new ArrayList<>());
     }
 
-    public void CartAddProduct(Long id) {
-        Product product = findFromDataBase(id);
-        productList.add(product);
+    public List<CartItem> getAllProduct() {
+        return cart.getItems();
+    }
+
+    public void CartAddProduct(Long productId) {
+        Product product = findFromDataBase(productId);
+        cart.add(product);
     }
 
     public void clearCart() {
-        productList.clear();
+        cart.clear();
     }
 
 
-    private Product findFromDataBase(Long id) {
-        return productService.findById(id).orElseThrow();
+    public void deleteItemFromCart (Long id){
+        cart.deleteItemFromCart(id);
+    }
+
+    private Product findFromDataBase(Long productId) {
+        return productService.findById(productId).orElseThrow(() -> new ResourceNotFoundException("Продукт с id: " + productId + " не найден"));
     }
 
 
-    public void removeOneProduct(Long id) {
-        for (int i = 0; i < productList.size(); i++) {
-           Product product = findFromDataBase(id);
-            if (productList.get(i).equals(product)){
-                productList.remove(i);
-            }
-        }
+    public void removeOneProduct(Long productId) {
+        cart.removeOneItem(productId);
 
     }
 }
