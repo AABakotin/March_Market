@@ -11,7 +11,6 @@ public class CartConverter {
     public CartDto entityToDto(CartItem item) {
 
         CartDto cartDto = new CartDto();
-
         cartDto.setId(item.getProductId());
         cartDto.setTitle(item.getProductTitle());
         cartDto.setCategoryTitle(item.getProductTitle());
