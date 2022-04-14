@@ -10,10 +10,12 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 import ru.geekbrains.march.market.dtos.JwtRequest;
 import ru.geekbrains.march.market.dtos.JwtResponse;
-import ru.geekbrains.march.market.entities.User;
+import ru.geekbrains.march.market.dtos.UserDto;
 import ru.geekbrains.march.market.exceptions.AppError;
 import ru.geekbrains.march.market.services.UserService;
 import ru.geekbrains.march.market.utils.JwtTokenUtil;
+
+import java.security.Principal;
 
 @RestController
 @RequiredArgsConstructor
@@ -35,9 +37,22 @@ public class AuthController {
         return ResponseEntity.ok(new JwtResponse(token));
     }
 
-    @PostMapping("/check_email")
-    public String requestEmail(@RequestBody String token) {
-        return userService.findByUsername(jwtTokenUtil.getUsernameFromToken(token)).get().getEmail();
 
+    // Передаю имя и эмайл. В постмане работает отлично, фронт нет.
+    // На фронте необходимо как то сохранять токен и его постоянно передавать.
+    // Т.к. токен не запоминается, после входа нет корзины...
+
+    @GetMapping("/check_email")
+    public UserDto infoMailRequest(Principal principal) {
+
+        UserDto userDto = new UserDto();
+        if (principal == null) {
+            userDto.setName("None");
+            userDto.setEmail("None@none");
+            return userDto;
+        }
+        userDto.setName(principal.getName());
+        userDto.setEmail(userService.findByUsername(userDto.getName()).orElseThrow().getEmail());
+        return userDto;
     }
 }

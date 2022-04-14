@@ -1,15 +1,10 @@
 angular.module('market', []).controller('indexController', function ($scope, $http) {
 
-    $scope.fillTable = function () {
-        $http.get('http://localhost:8189/market/api/v1/products')
-            .then(function (response) {
-                $scope.products = response.data;
-                // console.log(response);
-            });
-    };
+ const contextPath = 'http://localhost:8189/market/api/v1';
+ const contextPathAuth = 'http://localhost:8189/market/auth';
 
-     $scope.totalPrice = function () {
-        $http.get('http://localhost:8189/market/api/v1/cart/total/')
+    $scope.totalPrice = function () {
+        $http.get(contextPath + '/cart/total/')
             .then(function (response) {
                 $scope.total = response.data;
                 console.log (response);
@@ -18,7 +13,7 @@ angular.module('market', []).controller('indexController', function ($scope, $ht
     };
 
     $scope.fillTableCart = function () {
-        $http.get('http://localhost:8189/market/api/v1/cart/')
+        $http.get(contextPath + '/cart')
             .then(function (response) {
                 $scope.cart = response.data;
                 $scope.totalPrice();
@@ -26,65 +21,83 @@ angular.module('market', []).controller('indexController', function ($scope, $ht
             });
     };
 
-    $scope.deleteProduct = function (id) {
-        $http.delete('http://localhost:8189/market/api/v1/products/' + id)
+    $scope.addProductToCart = function (id) {
+        $http.get(contextPath + '/cart/add/' + id)
             .then(function (response) {
-                $scope.fillTable();
+                $scope.fillTableCart();
+                    $scope.totalPrice();
+            });
+    };
 
-            });
-    }
-       $scope.addProductToCart = function (id) {
-        $http.get('http://localhost:8189/market/api/v1/cart/add/' + id)
+    $scope.deleteProductFromCart = function (id) {
+        $http.get(contextPath + '/cart/delete_item/' + id)
             .then(function (response) {
                 $scope.fillTableCart();
                     $scope.totalPrice();
             });
-    }
-     $scope.deleteProductFromCart = function (id) {
-        $http.get('http://localhost:8189/market/api/v1/cart/delete_item/' + id)
+    };
+
+    $scope.deleteOneProductFromCart = function (id) {
+        $http.get(contextPath + '/cart/delete/' + id)
             .then(function (response) {
                 $scope.fillTableCart();
                     $scope.totalPrice();
             });
-    }
-      $scope.deleteOneProductFromCart = function (id) {
-        $http.get('http://localhost:8189/market/api/v1/cart/delete/' + id)
-            .then(function (response) {
-                $scope.fillTableCart();
-                    $scope.totalPrice();
-            });
-    }
+    };
 
     $scope.createNewProduct = function () {
-        $http.post('http://localhost:8189/market/api/v1/products', $scope.newProduct)
+        $http.post(contextPath + '/products', $scope.newProduct)
             .then(function (response) {
                 $scope.newProduct = null;
                 $scope.fillTable();
             });
-    }
-    $scope.userAuthService = function (){
-    $http.post('http://localhost:8189/market/auth', $scope.userAuth)
-            .then(function (response) {
-            $scope.token = response.data
-             console.log(response);
-            });
-    }
+    };
 
-       $scope.userInfoMail = function (){
-    $http.get('http://localhost:8189/market/auth/check_email/', $scope.userAuthName)
-            .then(function (response) {
-            $scope.email = response.data;
-             console.log(response);
-            });
-    }
-
-        $scope.clear = function () {
-            $http.get('http://localhost:8189/market/api/v1/cart/clear')
-                .then(function (response) {
-                    $scope.fillTableCart();
+    $scope.clear = function () {
+        $http.get(contextPath + '/cart/clear')
+             .then(function (response) {
+                $scope.fillTableCart();
                 });
-        }
+    };
 
+    $scope.deleteProduct = function (id) {
+        $http.delete(contextPath + '/products/' + id)
+             .then(function (response) {
+                 $scope.fillTable();
+
+              });
+    };
+
+    $scope.fillTable = function () {
+        $http.get(contextPath + '/products')
+            .then(function (response) {
+                $scope.products = response.data;
+                // console.log(response);
+            });
+    };
+
+    $scope.userAuthService = function (){
+        $http.post(contextPathAuth , $scope.userAuth)
+            .then(function (response) {
+            $scope.token = response.data.token
+             console.log(response);
+            });
+    };
+
+    $scope.userInfoMail = function (){
+        $http({
+        url: contextPathAuth + '/check_email',
+        method : 'GET',
+        params:
+            {
+                //Как то надо передавать в шапку Token.
+            }
+      })
+      .then(function (response) {
+         $scope.email = response.data;
+         console.log(response);
+           });
+    };
 
     $scope.fillTable();
     $scope.fillTableCart();

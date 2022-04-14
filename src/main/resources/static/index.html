@@ -18,7 +18,7 @@
     <h1>March Market</h1>
     <p></p>
     <br>
-    <form class="row g-3" ng-submit="userAuthService()" >
+    <form class="row g-3" ng-submit="userAuthService()">
         <div class="col-auto">
             <input class="form-control" type="text" id="userAuthName" ng-model="userAuth.username"
                    placeholder="Логин">
@@ -28,18 +28,26 @@
                    placeholder="Пароль">
         </div>
         <div class="col-auto">
-            <button type="submit" class="btn btn-primary mb-3" >Войти</button>
+            <button type="submit" class="btn btn-primary mb-3">Войти</button>
         </div>
-        <div class="col-auto">
-            <p> Ваш токен</p>
+        <br>
+        <br>
+        <div>
             {{token}}
         </div>
     </form>
-
+    <br>
+    <br>
+    <div>
+            <button type="submit" class="btn btn-primary mb-3" ng-click="userInfoMail()">Узнать почту</button>
+        <br>
+        <br>
+        <p> Ваша почта {{email}} </p>
+    </div>
     <br>
     <p></p>
     <h3>Добавить продукт</h3>
-    <form class="row g-3" ng-submit="createNewProduct()" >
+    <form class="row g-3" ng-submit="createNewProduct()">
         <div class="col-auto">
             <input class="form-control" type="text" id="newProductTitle" ng-model="newProduct.title"
                    placeholder="Название продукта">
@@ -57,7 +65,7 @@
                    placeholder="Цена">
         </div>
         <div class="col-auto">
-            <button type="submit" class="btn btn-primary mb-3" >Создать</button>
+            <button type="submit" class="btn btn-primary mb-3">Создать</button>
         </div>
     </form>
     <br>
