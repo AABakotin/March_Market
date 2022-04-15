@@ -1,15 +1,16 @@
 package ru.geekbrains.march.market.services;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import ru.geekbrains.march.market.converters.CartConverter;
+import ru.geekbrains.march.market.dtos.CartDto;
 import ru.geekbrains.march.market.entities.Product;
-import ru.geekbrains.march.market.exceptions.ResourceNotFoundException;
 import ru.geekbrains.march.market.utils.Cart;
 import ru.geekbrains.march.market.utils.CartItem;
 
 import javax.annotation.PostConstruct;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,6 +21,7 @@ import java.util.List;
 public class CartService {
 
     private final ProductService productService;
+    private final CartConverter cartConverter;
     private Cart cart;
 
     @PostConstruct
@@ -28,8 +30,12 @@ public class CartService {
         cart.setItems(new ArrayList<>());
     }
 
-    public List<CartItem> getAllProduct() {
-        return cart.getItems();
+    public List<CartDto> getAllProduct() {
+        List<CartDto> cartDtos = new ArrayList<>();
+        for (CartItem item : cart.getItems()) {
+            cartDtos.add(cartConverter.entityToDto(item));
+        }
+        return cartDtos;
     }
 
     public void CartAddProduct(Long productId) {
@@ -42,12 +48,17 @@ public class CartService {
     }
 
 
-    public void deleteItemFromCart (Long id){
+    public void deleteItemFromCart(Long id) {
         cart.deleteItemFromCart(id);
     }
 
     private Product findFromDataBase(Long productId) {
-        return productService.findById(productId).orElseThrow(() -> new ResourceNotFoundException("Продукт с id: " + productId + " не найден"));
+        return productService.findById(productId);
+    }
+
+
+    public BigDecimal totalPrice() {
+        return cart.getTotalPrice();
     }
 
 

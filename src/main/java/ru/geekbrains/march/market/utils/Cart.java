@@ -44,6 +44,7 @@ public class Cart {
                 items.remove(i);
             }
         }
+        recalculate();
     }
 
     public void clear() {
