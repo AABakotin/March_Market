@@ -1,7 +1,6 @@
 package ru.geekbrains.march.market.core.services;
 
-import lombok.AllArgsConstructor;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.geekbrains.march.market.api.CartDto;
@@ -10,10 +9,8 @@ import ru.geekbrains.march.market.api.OrderDto;
 import ru.geekbrains.march.market.core.converters.OrderConverter;
 import ru.geekbrains.march.market.core.entities.Order;
 import ru.geekbrains.march.market.core.entities.OrderItem;
-import ru.geekbrains.march.market.core.entities.User;
 import ru.geekbrains.march.market.core.integrations.CartServiceIntegration;
 import ru.geekbrains.march.market.core.repositories.OrderRepository;
-
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,10 +18,9 @@ import java.util.stream.Collectors;
 
 
 @Service
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class OrderService {
     private final CartServiceIntegration cartServiceIntegration;
-    private final UserService userService;
     private final ProductService productService;
     private final OrderRepository orderRepository;
     private final OrderConverter orderConverter;
@@ -33,7 +29,7 @@ public class OrderService {
     public void createOrder(String username) {
         CartDto cartDto = cartServiceIntegration.getProductsCart();
         Order order = new Order();
-        order.setUser(findByUserFromDataBase(username));
+        order.setUsername(username);
         order.setTotalPrice(cartDto.getTotalPrice());
         ArrayList<OrderItem> orderItemList = new ArrayList<>();
         for (CartItemDto o : cartDto.getItems()) {
@@ -50,13 +46,8 @@ public class OrderService {
         cartServiceIntegration.clearCart();
     }
 
-    private User findByUserFromDataBase(String username) {
-        return userService.findByUsername(username).orElseThrow(() -> new UsernameNotFoundException("Пользователь не найден"));
-    }
-
-
     public List<OrderDto> getAllOrderItems(String username) {
-        List<Order> orderList = orderRepository.findAllByUser(findByUserFromDataBase(username));
+        List<Order> orderList = orderRepository.findAllByUsername(username);
        return orderList.stream().map(orderConverter::entityToDto).collect(Collectors.toList());
         }
     }

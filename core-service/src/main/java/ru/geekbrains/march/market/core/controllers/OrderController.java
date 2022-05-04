@@ -14,23 +14,18 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/v1/order")
 @RequiredArgsConstructor
-@CrossOrigin("*")
 public class OrderController {
     private final OrderService orderService;
 
-
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public void createNewOrder(Principal principal) {
-        String username = principal.getName();
+    public void createNewOrder(@RequestHeader String username) {
         orderService.createOrder(username);
 
     }
 
-
     @GetMapping
-    public List<OrderDto> getAllOrderItems(Principal principal) {
-        String username = principal.getName();
+    public List<OrderDto> getAllOrderItems(@RequestHeader String username) {
         return orderService.getAllOrderItems(username);
     }
 }

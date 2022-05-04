@@ -38,7 +38,7 @@ public class CartService {
     }
 
     public void CartAddProduct(Long productId) {
-        cart.add(findFromDataBase(productId));
+        cart.add(productServiceIntegration.findById(productId));
     }
 
     public void clearCart() {
@@ -49,9 +49,6 @@ public class CartService {
         cart.deleteItemFromCart(id);
     }
 
-    private ProductDto findFromDataBase(Long productId) {
-        return productServiceIntegration.findById(productId);
-    }
 
     public BigDecimal totalPrice() {
         return cart.getTotalPrice();
