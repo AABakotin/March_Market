@@ -19,17 +19,4 @@ public class CartItemConverter {
                 item.getPrice()
         );
     }
-
-    public CartItemDto entityToDtoItems(List<CartItem> item) {
-
-        CartItemDto cartItemDto = new CartItemDto();
-        for (CartItem c : item) {
-            cartItemDto.setProductId(c.getProductId());
-            cartItemDto.setPrice(c.getPrice());
-            cartItemDto.setProductTitle(c.getProductTitle());
-            cartItemDto.setQuantity(c.getQuantity());
-            cartItemDto.setPricePerProduct(c.getPricePerProduct());
-        }
-        return cartItemDto;
-    }
 }

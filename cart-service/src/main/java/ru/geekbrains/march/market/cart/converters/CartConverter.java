@@ -8,17 +8,20 @@ import ru.geekbrains.march.market.api.CartItemDto;
 import ru.geekbrains.march.market.cart.utils.Cart;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Component
 @RequiredArgsConstructor
 public class CartConverter{
 
+    private final CartItemConverter cartItemConverter;
 
-    public CartDto entityToDto(Cart c, List<CartItemDto> itemDtos) {
-        CartDto dto = new CartDto();
-        dto.setTotalPrice(c.getTotalPrice());
-        dto.setItems(itemDtos);
-        return dto;
+    public CartDto entityToDto(Cart c) {
+        return new CartDto(c.getItems()
+                .stream()
+                .map(cartItemConverter::entityToDtoItems)
+                .collect(Collectors.toList()),
+                c.getTotalPrice());
     }
 
 

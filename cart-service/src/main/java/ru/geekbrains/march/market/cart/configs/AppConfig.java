@@ -10,6 +10,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.http.client.reactive.ReactorClientHttpConnector;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.netty.http.client.HttpClient;
+import reactor.netty.tcp.TcpClient;
 import ru.geekbrains.march.market.cart.properties.ProductServiceIntegrationProperties;
 
 import java.util.concurrent.TimeUnit;
@@ -22,7 +23,7 @@ public class AppConfig {
 
     @Bean
     public WebClient productServiceWebClient() {
-        HttpClient httpClient = HttpClient
+        TcpClient tcpClient = TcpClient
                 .create()
                 .option(ChannelOption.CONNECT_TIMEOUT_MILLIS, properties.getConnectTimeout())
                 .doOnConnected(connection -> {
@@ -33,7 +34,7 @@ public class AppConfig {
         return WebClient
                 .builder()
                 .baseUrl(properties.getUrl())
-                .clientConnector(new ReactorClientHttpConnector(httpClient))
+                .clientConnector(new ReactorClientHttpConnector(HttpClient.from(tcpClient)))
                 .build();
     }
 }

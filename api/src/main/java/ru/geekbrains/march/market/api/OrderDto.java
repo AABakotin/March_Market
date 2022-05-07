@@ -4,54 +4,44 @@ package ru.geekbrains.march.market.api;
 
 
 import java.math.BigDecimal;
+import java.util.List;
 
 
 public class OrderDto {
+    private Long id;
+    private List<OrderItemDto> items;
+    private BigDecimal totalPrice;
 
-    private String nameProduct;
-    private int quantity;
-    private BigDecimal price;
-    private BigDecimal PricePerProduct;
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public List<OrderItemDto> getItems() {
+        return items;
+    }
+
+    public void setItems(List<OrderItemDto> items) {
+        this.items = items;
+    }
+
+    public BigDecimal getTotalPrice() {
+        return totalPrice;
+    }
+
+    public void setTotalPrice(BigDecimal totalPrice) {
+        this.totalPrice = totalPrice;
+    }
 
     public OrderDto() {
     }
 
-    public OrderDto(String nameProduct, int quantity, BigDecimal price, BigDecimal pricePerProduct) {
-        this.nameProduct = nameProduct;
-        this.quantity = quantity;
-        this.price = price;
-        PricePerProduct = pricePerProduct;
-    }
-
-    public String getNameProduct() {
-        return nameProduct;
-    }
-
-    public void setNameProduct(String nameProduct) {
-        this.nameProduct = nameProduct;
-    }
-
-    public int getQuantity() {
-        return quantity;
-    }
-
-    public void setQuantity(int quantity) {
-        this.quantity = quantity;
-    }
-
-    public BigDecimal getPrice() {
-        return price;
-    }
-
-    public void setPrice(BigDecimal price) {
-        this.price = price;
-    }
-
-    public BigDecimal getPricePerProduct() {
-        return PricePerProduct;
-    }
-
-    public void setPricePerProduct(BigDecimal pricePerProduct) {
-        PricePerProduct = pricePerProduct;
+    public OrderDto(Long id, List<OrderItemDto> items, BigDecimal totalPrice) {
+        this.id = id;
+        this.items = items;
+        this.totalPrice = totalPrice;
     }
 }

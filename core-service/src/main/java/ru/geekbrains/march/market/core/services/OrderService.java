@@ -9,6 +9,7 @@ import ru.geekbrains.march.market.api.OrderDto;
 import ru.geekbrains.march.market.core.converters.OrderConverter;
 import ru.geekbrains.march.market.core.entities.Order;
 import ru.geekbrains.march.market.core.entities.OrderItem;
+import ru.geekbrains.march.market.core.exceptions.ResourceNotFoundException;
 import ru.geekbrains.march.market.core.integrations.CartServiceIntegration;
 import ru.geekbrains.march.market.core.repositories.OrderRepository;
 
@@ -27,28 +28,32 @@ public class OrderService {
 
     @Transactional
     public void createOrder(String username) {
-        CartDto cartDto = cartServiceIntegration.getProductsCart();
+        CartDto cartDto = cartServiceIntegration.getProductsCart(username);
+        if (cartDto.getItems().isEmpty()){
+            throw new IllegalArgumentException("Корзина пустая");
+        }
         Order order = new Order();
         order.setUsername(username);
         order.setTotalPrice(cartDto.getTotalPrice());
-        ArrayList<OrderItem> orderItemList = new ArrayList<>();
-        for (CartItemDto o : cartDto.getItems()) {
-            OrderItem orderItem = new OrderItem();
-            orderItem.setOrder(order);
-            orderItem.setProduct(productService.findById(o.getProductId()));
-            orderItem.setPrice(o.getPrice());
-            orderItem.setPricePerProduct(o.getPricePerProduct());
-            orderItem.setQuantity(o.getQuantity());
-            orderItemList.add(orderItem);
-        }
-        order.setItems(orderItemList);
+        List<OrderItem> items = cartDto.getItems().stream()
+                .map(o -> {
+                    OrderItem item = new OrderItem();
+                    item.setOrder(order);
+                    item.setQuantity(o.getQuantity());
+                    item.setPrice(o.getPrice());
+                    item.setPricePerProduct(o.getPricePerProduct());
+                    item.setProduct(productService.findById(o.getProductId()));
+                    return item;
+                }).collect(Collectors.toList());
+        order.setItems(items);
         orderRepository.save(order);
         cartServiceIntegration.clearCart();
     }
 
+
     public List<OrderDto> getAllOrderItems(String username) {
         List<Order> orderList = orderRepository.findAllByUsername(username);
-       return orderList.stream().map(orderConverter::entityToDto).collect(Collectors.toList());
-        }
+        return orderList.stream().map(orderConverter::entityToDto).collect(Collectors.toList());
     }
+}
 

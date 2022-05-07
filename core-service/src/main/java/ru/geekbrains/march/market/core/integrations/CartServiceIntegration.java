@@ -10,31 +10,21 @@ import ru.geekbrains.march.market.api.CartDto;
 @Component
 @RequiredArgsConstructor
 public class CartServiceIntegration {
-
     private final WebClient cartServiceWebClient;
 
-    public CartDto getProductsCart() {
+    public CartDto getProductsCart(String username) {
         return cartServiceWebClient.get()
                 .uri("/api/v1/cart")
+                .header(username)
                 .retrieve()
                 .bodyToMono(CartDto.class)
                 .block();
     }
 
-    public void clearCart(){
+    public void clearCart() {
         cartServiceWebClient.get()
                 .uri("/api/v1/cart/clear")
-                .retrieve();
+                .retrieve()
+                .toBodilessEntity();
     }
-
-//    private final RestTemplate restTemplate;
-//
-//    public CartDto getProductsCart() {
-//        return restTemplate.getForObject("http://localhost:8190/market-cart/api/v1/cart", CartDto.class);
-//    }
-//
-//
-//    public void clearCart() {
-//        restTemplate.headForHeaders("http://localhost:8190/market-cart/api/v1/cart/clear");
-//    }
 }

@@ -153,20 +153,14 @@
         <table class="table table-striped" ng-show="isUserLoggedIn()">
             <thead>
             <tr>
-                <td align="center"></td>
-                <td align="center">Название</td>
-                <td align="center">Цена за ед.</td>
-                <td align="center">Количество</td>
+                <td align="center">Номер заказа</td>
                 <td align="center">Цена общая</td>
             </tr>
             </thead>
             <tbody>
-            <tr ng-repeat="o in orderItems">
-                <td align="center"></td>
-                <td align="center">{{o.nameProduct}}</td>
-                <td align="center">{{o.pricePerProduct}}</td>
-                <td align="center">{{o.quantity}}</td>
-                <td align="center">{{o.price}}</td>
+            <tr ng-repeat="o in order">
+                <td align="center">{{o.id}}</td>
+                <td align="center">{{o.totalPrice}}</td>
             </tr>
             </tbody>
         </table>

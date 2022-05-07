@@ -2,13 +2,14 @@ package ru.geekbrains.march.market.cart.controllers;
 
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 import ru.geekbrains.march.market.api.CartDto;
-import ru.geekbrains.march.market.api.CartItemDto;
 import ru.geekbrains.march.market.cart.services.CartService;
 
 import java.math.BigDecimal;
-import java.util.List;
 
     ////////////////////////////
     // port: 8190 /market-cart//
@@ -27,7 +28,7 @@ public class CartController {
 
     @GetMapping("/add/{id}")
     public void AddProductToCart(@PathVariable Long id) {
-        cartService.CartAddProduct(id);
+        cartService.cartAddProduct(id);
     }
 
     @GetMapping("/delete/{id}")
