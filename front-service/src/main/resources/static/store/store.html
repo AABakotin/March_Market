@@ -1,0 +1,29 @@
+<div>
+    <h3 align="center">Список товаров</h3>
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <td align="center">ID</td>
+            <td align="center">Название</td>
+            <td align="center">Цена</td>
+            <td align="center" ng-show="isUserLoggedIn()">Удалить из каталога</td>
+            <td align="center">Добавить в корзину</td>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="p in products">
+            <td align="center">{{p.id}}</td>
+            <td align="center">{{p.title}}</td>
+            <td align="center">{{p.price}}</td>
+            <td align="center">
+                <button class="btn btn-danger" ng-click="deleteProduct(p.id)" ng-show="isUserLoggedIn()">Удалить
+                </button>
+            </td>
+            <td align="center">
+                <button class="btn btn-primary" ng-click="addProductToCart(p.id)">Добавить
+                </button>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>

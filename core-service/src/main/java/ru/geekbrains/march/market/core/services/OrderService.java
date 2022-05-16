@@ -9,7 +9,7 @@ import ru.geekbrains.march.market.api.OrderDto;
 import ru.geekbrains.march.market.core.converters.OrderConverter;
 import ru.geekbrains.march.market.core.entities.Order;
 import ru.geekbrains.march.market.core.entities.OrderItem;
-import ru.geekbrains.march.market.core.exceptions.ResourceNotFoundException;
+import ru.geekbrains.march.market.core.entities.Product;
 import ru.geekbrains.march.market.core.integrations.CartServiceIntegration;
 import ru.geekbrains.march.market.core.repositories.OrderRepository;
 
@@ -27,13 +27,15 @@ public class OrderService {
     private final OrderConverter orderConverter;
 
     @Transactional
-    public void createOrder(String username) {
+    public void createOrder(String username, String address, String phoneNumber) {
         CartDto cartDto = cartServiceIntegration.getProductsCart(username);
         if (cartDto.getItems().isEmpty()){
             throw new IllegalArgumentException("Корзина пустая");
         }
         Order order = new Order();
         order.setUsername(username);
+        order.setAddress(address);
+        order.setPhoneNumber(phoneNumber);
         order.setTotalPrice(cartDto.getTotalPrice());
         List<OrderItem> items = cartDto.getItems().stream()
                 .map(o -> {
@@ -50,10 +52,11 @@ public class OrderService {
         cartServiceIntegration.clearCart();
     }
 
-
-    public List<OrderDto> getAllOrderItems(String username) {
-        List<Order> orderList = orderRepository.findAllByUsername(username);
-        return orderList.stream().map(orderConverter::entityToDto).collect(Collectors.toList());
+    public List<OrderDto> getOrder(String username) {
+        return orderRepository.findAllByUsername(username)
+                .stream()
+                .map(orderConverter::entityToDto)
+                .collect(Collectors.toList());
     }
 }
 

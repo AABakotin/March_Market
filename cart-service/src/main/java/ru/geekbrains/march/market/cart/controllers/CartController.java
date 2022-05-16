@@ -2,18 +2,14 @@ package ru.geekbrains.march.market.cart.controllers;
 
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import ru.geekbrains.march.market.api.CartDto;
+import ru.geekbrains.march.market.api.StringResponse;
 import ru.geekbrains.march.market.cart.services.CartService;
 
 import java.math.BigDecimal;
+import java.util.UUID;
 
-    ////////////////////////////
-    // port: 8190 /market-cart//
-    ////////////////////////////
 
 @RestController
 @RequestMapping("/api/v1/cart")
@@ -21,34 +17,54 @@ import java.math.BigDecimal;
 public class CartController {
     private final CartService cartService;
 
-    @GetMapping("")
-    public CartDto getAllProductsInCart() {
-        return cartService.getAllProduct();
+    @GetMapping("/{guestCartId}")
+    public CartDto getAllProductsInCart(@RequestHeader(required = false) String username, @PathVariable String guestCartId) {
+        String currentCartId = selectCartId(username, guestCartId);
+        return cartService.getCurrentCartDto(currentCartId);
     }
 
-    @GetMapping("/add/{id}")
-    public void AddProductToCart(@PathVariable Long id) {
-        cartService.cartAddProduct(id);
+    @GetMapping("/generate_id")
+    public StringResponse generateGuestCartId() {
+        return new StringResponse(UUID.randomUUID().toString());
     }
 
-    @GetMapping("/delete/{id}")
-    public void removeOneProductFromCart(@PathVariable Long id) {
-        cartService.removeOneProduct(id);
+
+    @GetMapping("/{guestCartId}/add/{productId}")
+    public void AddProductToCart(@RequestHeader(required = false) String username, @PathVariable String guestCartId, @PathVariable Long productId) {
+        String currentCartId = selectCartId(username, guestCartId);
+        cartService.cartAddProduct(currentCartId, productId);
     }
 
-    @GetMapping("/delete_item/{id}")
-    public void deleteItemFromCart(@PathVariable Long id) {
-        cartService.deleteItemFromCart(id);
+    @GetMapping("/{guestCartId}/remove/{productId}")
+    public void removeOneProductFromCart(@RequestHeader(required = false) String username, @PathVariable String guestCartId, @PathVariable Long productId) {
+        String currentCartId = selectCartId(username, guestCartId);
+        cartService.removeOneProductById(currentCartId, productId);
     }
 
-    @GetMapping("/clear")
-    public void clearCart() {
-        cartService.clearCart();
+    @GetMapping("/{guestCartId}/delete_item/{productId}")
+    public void deleteItemFromCart(@RequestHeader(required = false) String username, @PathVariable String guestCartId, @PathVariable Long productId) {
+        String currentCartId = selectCartId(username, guestCartId);
+        cartService.deleteItemFromCart(currentCartId, productId);
     }
 
-    @GetMapping("/total")
-    public BigDecimal totalPrice() {
-        return cartService.totalPrice();
+    @GetMapping("/{guestCartId}/clear")
+    public void clearCart(@RequestHeader(required = false) String username, @PathVariable String guestCartId) {
+        String currentCartId = selectCartId(username, guestCartId);
+        cartService.clearCart(currentCartId);
+    }
+
+    @GetMapping("/{guestCartId}/total")
+    public BigDecimal totalPrice(@RequestHeader(required = false) String username, @PathVariable String guestCartId) {
+        String currentCartId = selectCartId(username, guestCartId);
+        return cartService.totalPrice(currentCartId);
+    }
+
+
+    private String selectCartId(String username, String guestCartId) {
+        if (username != null) {
+            return username;
+        }
+        return guestCartId;
     }
 
 }

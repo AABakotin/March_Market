@@ -12,14 +12,16 @@ import java.util.stream.Collectors;
 @Component
 @RequiredArgsConstructor
 public class OrderConverter {
-    private final OrderItemConverter orderItemConverter;
-    public OrderDto entityToDto(Order item) {
-        return new OrderDto(item.getId(),
-                item.getItems()
-                        .stream()
-                        .map(orderItemConverter::entityToDto)
-                        .collect(Collectors.toList()),
-                item.getTotalPrice());
-    }
 
+    private final OrderItemConverter orderItemConverter;
+
+    public OrderDto entityToDto(Order order){
+        OrderDto orderDto = new OrderDto();
+        orderDto.setId(order.getId());
+        orderDto.setList(order.getItems().stream().map(orderItemConverter::entityToDto).collect(Collectors.toList()));
+        orderDto.setTotalPrice(order.getTotalPrice());
+        orderDto.setAddress(order.getAddress());
+        orderDto.setPhoneNumber(order.getPhoneNumber());
+        return orderDto;
+    }
 }

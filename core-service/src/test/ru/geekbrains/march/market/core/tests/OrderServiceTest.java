@@ -1,19 +1,15 @@
 package ru.geekbrains.march.market.core.tests;
 
 
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentMatchers;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.ActiveProfiles;
 import ru.geekbrains.march.market.api.CartDto;
 import ru.geekbrains.march.market.api.CartItemDto;
-import ru.geekbrains.march.market.api.ProductDto;
-import ru.geekbrains.march.market.core.entities.Category;
 import ru.geekbrains.march.market.core.entities.Product;
 import ru.geekbrains.march.market.core.integrations.CartServiceIntegration;
 import ru.geekbrains.march.market.core.repositories.OrderRepository;
@@ -53,13 +49,13 @@ public class OrderServiceTest {
                 .when(cartServiceIntegration).getProductsCart("bob");
         Mockito.doReturn(product)
                 .when(productService).findById(1L);
-        orderService.createOrder("bob");
+        orderService.createOrder("bob","MSC","8888888888");
         Mockito.verify(orderRepository, Mockito.times(1)).save(ArgumentMatchers.any());
     }
 
     @Test
     public void getOrderByUsername() {
-        orderService.getAllOrderItems("bob");
+        orderService.getOrder("bob");
         Mockito.verify(orderRepository, Mockito.times(1)).findAllByUsername(ArgumentMatchers.any());
 
     }
