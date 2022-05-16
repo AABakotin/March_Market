@@ -37,7 +37,7 @@ angular.module('market', ['ngStorage']).controller('indexController', function (
             .then(function (response) {
                 $scope.cart = response.data.items;
                 $scope.totalPrice();
-                // console.log(response);
+
             });
     };
 
@@ -93,7 +93,7 @@ angular.module('market', ['ngStorage']).controller('indexController', function (
         $http.get(contextPath + '/products')
             .then(function (response) {
                 $scope.products = response.data;
-                // console.log(response);
+
             });
     };
 
@@ -118,7 +118,7 @@ angular.module('market', ['ngStorage']).controller('indexController', function (
 
 
     $scope.createOrder = function () {
-            $http.get(contextPath + '/order')
+            $http.post(contextPath + '/order')
                 .then(function (response) {
                 console.log(response);
                 $scope.clear();
@@ -130,11 +130,9 @@ angular.module('market', ['ngStorage']).controller('indexController', function (
     $scope.getOrders = function () {
             $http.get(contextPath + '/order')
                 .then(function (response) {
-                $scope.orderItems = response.data;
+                $scope.order = response.data;
                 console.log(response);
-
-
-                });
+                  });
         };
 
 

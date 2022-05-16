@@ -4,18 +4,13 @@ import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import ru.geekbrains.march.market.api.CartDto;
-import ru.geekbrains.march.market.api.CartItemDto;
-import ru.geekbrains.march.market.api.ProductDto;
 import ru.geekbrains.march.market.cart.converters.CartConverter;
-import ru.geekbrains.march.market.cart.converters.CartItemConverter;
 import ru.geekbrains.march.market.cart.integrations.ProductServiceIntegration;
 import ru.geekbrains.march.market.cart.utils.Cart;
 
 import javax.annotation.PostConstruct;
 import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.Collectors;
 
 
 @Service
@@ -24,7 +19,6 @@ import java.util.stream.Collectors;
 public class CartService {
     private final ProductServiceIntegration productServiceIntegration;
     private final CartConverter cartConverter;
-    private final CartItemConverter cartItemConverter;
     private Cart cart;
 
     @PostConstruct
@@ -34,10 +28,10 @@ public class CartService {
     }
 
     public CartDto getAllProduct() {
-        return cartConverter.entityToDto(cart, cart.getItems().stream().map(cartItemConverter::entityToDtoItems).collect(Collectors.toList()));
+        return cartConverter.entityToDto(cart);
     }
 
-    public void CartAddProduct(Long productId) {
+    public void cartAddProduct(Long productId) {
         cart.add(productServiceIntegration.findById(productId));
     }
 

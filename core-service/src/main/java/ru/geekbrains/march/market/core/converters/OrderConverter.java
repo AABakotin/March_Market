@@ -1,26 +1,25 @@
 package ru.geekbrains.march.market.core.converters;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import ru.geekbrains.march.market.api.OrderDto;
 import ru.geekbrains.march.market.core.entities.Order;
-import ru.geekbrains.march.market.core.entities.OrderItem;
+
+
+import java.util.stream.Collectors;
 
 
 @Component
+@RequiredArgsConstructor
 public class OrderConverter {
-
+    private final OrderItemConverter orderItemConverter;
     public OrderDto entityToDto(Order item) {
-
-        OrderDto o = new OrderDto();
-
-        for (OrderItem c : item.getItems()) {
-            o.setNameProduct(c.getProduct().getTitle());
-            o.setPrice(c.getPrice());
-            o.setQuantity(c.getQuantity());
-            o.setPricePerProduct(c.getPricePerProduct());
-
-        }
-        return o;
+        return new OrderDto(item.getId(),
+                item.getItems()
+                        .stream()
+                        .map(orderItemConverter::entityToDto)
+                        .collect(Collectors.toList()),
+                item.getTotalPrice());
     }
 
 }

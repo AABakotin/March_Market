@@ -7,8 +7,6 @@ import org.springframework.web.bind.annotation.*;
 import ru.geekbrains.march.market.api.OrderDto;
 import ru.geekbrains.march.market.core.services.OrderService;
 
-
-import java.security.Principal;
 import java.util.List;
 
 @RestController
@@ -21,7 +19,6 @@ public class OrderController {
     @ResponseStatus(HttpStatus.CREATED)
     public void createNewOrder(@RequestHeader String username) {
         orderService.createOrder(username);
-
     }
 
     @GetMapping
