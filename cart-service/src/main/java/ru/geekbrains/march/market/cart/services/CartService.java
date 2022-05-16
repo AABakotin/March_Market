@@ -29,7 +29,7 @@ public class CartService {
     }
 
     public CartDto getCurrentCartDto(String cartId) {
-       return cartConverter.entityToDto(getCurrentCart(cartId));
+        return cartConverter.entityToDto(getCurrentCart(cartId));
     }
 
     public Cart getCurrentCart(String cartId) {
@@ -59,5 +59,10 @@ public class CartService {
 
     public void removeOneProductById(String cartId, Long productId) {
         getCurrentCart(cartId).removeOneItem(productId);
+    }
+
+    public void mergeCart(String cartId, String username) {
+        carts.put(username, getCurrentCart(cartId));
+        carts.remove(cartId);
     }
 }

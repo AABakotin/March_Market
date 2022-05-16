@@ -28,7 +28,6 @@ public class CartController {
         return new StringResponse(UUID.randomUUID().toString());
     }
 
-
     @GetMapping("/{guestCartId}/add/{productId}")
     public void AddProductToCart(@RequestHeader(required = false) String username, @PathVariable String guestCartId, @PathVariable Long productId) {
         String currentCartId = selectCartId(username, guestCartId);
@@ -59,6 +58,10 @@ public class CartController {
         return cartService.totalPrice(currentCartId);
     }
 
+    @GetMapping("/{guestCartId}/merge")
+    public void mergeCarts (@RequestHeader String username, @PathVariable String guestCartId){
+        cartService.mergeCart(guestCartId, username);
+    }
 
     private String selectCartId(String username, String guestCartId) {
         if (username != null) {
