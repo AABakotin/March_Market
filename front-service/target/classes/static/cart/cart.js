@@ -29,6 +29,7 @@ const contextPath = 'http://localhost:5555/core/api/v1';
     $scope.clear = function () {
                 $http.get(contextPathCart + '/clear')
                      .then(function (response) {
+                     $scope.fillTableCart();
                         });
             };
 

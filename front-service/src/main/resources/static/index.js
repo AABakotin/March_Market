@@ -97,7 +97,7 @@ angular.module('market').controller('indexController', function ($rootScope, $sc
     };
 
     $scope.about = function (){
-        $http.get('http://localhost:5555/auth/about')
+        $http.get('http://localhost:5555/auth/info')
             .then(function (response){
                 console.log(response)
                 alert("Имя пользователя: "+response.data.name + "\nemail: "+ response.data.email)

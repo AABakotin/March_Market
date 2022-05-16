@@ -24,39 +24,39 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 @SpringBootTest
 @ActiveProfiles("test")
 public class OrderServiceTest {
-
-    @Autowired
-    private OrderService orderService;
-    @MockBean
-    private OrderRepository orderRepository;
-    @MockBean
-    private CartServiceIntegration cartServiceIntegration;
-    @MockBean
-    private ProductService productService;
-
-    @Test
-    public void createOrderTest() {
-        CartItemDto orange = new CartItemDto(1L, "Orange", 1, BigDecimal.valueOf(1), BigDecimal.valueOf(1));
-        Product product = new Product();
-        product.setId(1L);
-        product.setTitle("Orange");
-        ArrayList<CartItemDto> cartItemDtos = new ArrayList<>();
-        cartItemDtos.add(orange);
-        CartDto cartDto = new CartDto();
-        cartDto.setItems(cartItemDtos);
-        cartDto.setTotalPrice(BigDecimal.valueOf(1));
-        Mockito.doReturn(cartDto)
-                .when(cartServiceIntegration).getProductsCart("bob");
-        Mockito.doReturn(product)
-                .when(productService).findById(1L);
-        orderService.createOrder("bob","MSC","8888888888");
-        Mockito.verify(orderRepository, Mockito.times(1)).save(ArgumentMatchers.any());
-    }
-
-    @Test
-    public void getOrderByUsername() {
-        orderService.getOrder("bob");
-        Mockito.verify(orderRepository, Mockito.times(1)).findAllByUsername(ArgumentMatchers.any());
-
-    }
+//
+//    @Autowired
+//    private OrderService orderService;
+//    @MockBean
+//    private OrderRepository orderRepository;
+//    @MockBean
+//    private CartServiceIntegration cartServiceIntegration;
+//    @MockBean
+//    private ProductService productService;
+//
+//    @Test
+//    public void createOrderTest() {
+//        CartItemDto orange = new CartItemDto(1L, "Orange", 1, BigDecimal.valueOf(1), BigDecimal.valueOf(1));
+//        Product product = new Product();
+//        product.setId(1L);
+//        product.setTitle("Orange");
+//        ArrayList<CartItemDto> cartItemDtos = new ArrayList<>();
+//        cartItemDtos.add(orange);
+//        CartDto cartDto = new CartDto();
+//        cartDto.setItems(cartItemDtos);
+//        cartDto.setTotalPrice(BigDecimal.valueOf(1));
+//        Mockito.doReturn(cartDto)
+//                .when(cartServiceIntegration).getProductsCart("bob");
+//        Mockito.doReturn(product)
+//                .when(productService).findById(1L);
+//        orderService.createOrder("bob","MSC","8888888888");
+//        Mockito.verify(orderRepository, Mockito.times(1)).save(ArgumentMatchers.any());
+//    }
+//
+//    @Test
+//    public void getOrderByUsername() {
+//        orderService.getOrder("bob");
+//        Mockito.verify(orderRepository, Mockito.times(1)).findAllByUsername(ArgumentMatchers.any());
+//
+//    }
 }

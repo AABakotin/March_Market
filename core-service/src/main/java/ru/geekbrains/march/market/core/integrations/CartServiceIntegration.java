@@ -14,17 +14,19 @@ public class CartServiceIntegration {
 
     public CartDto getProductsCart(String username) {
         return cartServiceWebClient.get()
-                .uri("/api/v1/cart")
-                .header(username)
+                .uri("/api/v1/cart/1")
+                .header("username", username)
                 .retrieve()
                 .bodyToMono(CartDto.class)
                 .block();
     }
 
-    public void clearCart() {
+    public void clearCart(String username) {
         cartServiceWebClient.get()
-                .uri("/api/v1/cart/clear")
+                .uri("/api/v1/cart/1/clear")
+                .header("username", username)
                 .retrieve()
-                .toBodilessEntity();
+                .toBodilessEntity()
+                .block();
     }
 }
