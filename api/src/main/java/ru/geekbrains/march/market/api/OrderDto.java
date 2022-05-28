@@ -9,8 +9,22 @@ import java.util.List;
 
 public class OrderDto {
     private Long id;
-    private List<OrderItemDto> items;
+    private List<OrderItemDto> list;
     private BigDecimal totalPrice;
+    private String address;
+    private String phoneNumber;
+
+
+    public OrderDto() {
+    }
+
+    public OrderDto(Long id, List<OrderItemDto> list, BigDecimal totalPrice, String address, String phoneNumber) {
+        this.id = id;
+        this.list = list;
+        this.totalPrice = totalPrice;
+        this.address = address;
+        this.phoneNumber = phoneNumber;
+    }
 
     public Long getId() {
         return id;
@@ -20,12 +34,12 @@ public class OrderDto {
         this.id = id;
     }
 
-    public List<OrderItemDto> getItems() {
-        return items;
+    public List<OrderItemDto> getList() {
+        return list;
     }
 
-    public void setItems(List<OrderItemDto> items) {
-        this.items = items;
+    public void setList(List<OrderItemDto> list) {
+        this.list = list;
     }
 
     public BigDecimal getTotalPrice() {
@@ -36,12 +50,19 @@ public class OrderDto {
         this.totalPrice = totalPrice;
     }
 
-    public OrderDto() {
+    public String getAddress() {
+        return address;
     }
 
-    public OrderDto(Long id, List<OrderItemDto> items, BigDecimal totalPrice) {
-        this.id = id;
-        this.items = items;
-        this.totalPrice = totalPrice;
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
 }

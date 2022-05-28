@@ -10,7 +10,8 @@ import ru.geekbrains.march.market.cart.utils.Cart;
 
 import javax.annotation.PostConstruct;
 import java.math.BigDecimal;
-import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 
 @Service
@@ -19,36 +20,44 @@ import java.util.ArrayList;
 public class CartService {
     private final ProductServiceIntegration productServiceIntegration;
     private final CartConverter cartConverter;
-    private Cart cart;
+    private Map<String, Cart> carts;
 
     @PostConstruct
     public void init() {
-        cart = new Cart();
-        cart.setItems(new ArrayList<>());
+        carts = new HashMap<>();
+
     }
 
-    public CartDto getAllProduct() {
-        return cartConverter.entityToDto(cart);
+    public CartDto getCurrentCartDto(String cartId) {
+       return cartConverter.entityToDto(getCurrentCart(cartId));
     }
 
-    public void cartAddProduct(Long productId) {
-        cart.add(productServiceIntegration.findById(productId));
+    public Cart getCurrentCart(String cartId) {
+        if (!carts.containsKey(cartId)) {
+            Cart cart = new Cart();
+            carts.put(cartId, cart);
+        }
+        return carts.get(cartId);
     }
 
-    public void clearCart() {
-        cart.clear();
+    public void cartAddProduct(String cartId, Long productId) {
+        getCurrentCart(cartId).add(productServiceIntegration.findById(productId));
     }
 
-    public void deleteItemFromCart(Long id) {
-        cart.deleteItemFromCart(id);
+    public void clearCart(String cartId) {
+        getCurrentCart(cartId).clear();
+    }
+
+    public void deleteItemFromCart(String cartId, Long productId) {
+        getCurrentCart(cartId).deleteItemFromCart(productId);
     }
 
 
-    public BigDecimal totalPrice() {
-        return cart.getTotalPrice();
+    public BigDecimal totalPrice(String cartId) {
+        return getCurrentCart(cartId).getTotalPrice();
     }
 
-    public void removeOneProduct(Long productId) {
-        cart.removeOneItem(productId);
+    public void removeOneProductById(String cartId, Long productId) {
+        getCurrentCart(cartId).removeOneItem(productId);
     }
 }

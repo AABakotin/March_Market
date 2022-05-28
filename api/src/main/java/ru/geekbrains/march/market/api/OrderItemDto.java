@@ -3,18 +3,30 @@ package ru.geekbrains.march.market.api;
 import java.math.BigDecimal;
 
 public class OrderItemDto {
-    private Long productId;
+
+    private Long orderId;
     private String productTitle;
     private int quantity;
     private BigDecimal pricePerProduct;
-    private BigDecimal price;
+    private BigDecimal totalPrice;
 
-    public Long getProductId() {
-        return productId;
+    public OrderItemDto(Long productId, String productTitle, int quantity, BigDecimal pricePerProduct, BigDecimal totalPrice) {
+        this.orderId = productId;
+        this.productTitle = productTitle;
+        this.quantity = quantity;
+        this.pricePerProduct = pricePerProduct;
+        this.totalPrice = totalPrice;
     }
 
-    public void setProductId(Long productId) {
-        this.productId = productId;
+    public OrderItemDto() {
+    }
+
+    public Long getOrderId() {
+        return orderId;
+    }
+
+    public void setOrderId(Long orderId) {
+        this.orderId = orderId;
     }
 
     public String getProductTitle() {
@@ -41,22 +53,11 @@ public class OrderItemDto {
         this.pricePerProduct = pricePerProduct;
     }
 
-    public BigDecimal getPrice() {
-        return price;
+    public BigDecimal getTotalPrice() {
+        return totalPrice;
     }
 
-    public void setPrice(BigDecimal price) {
-        this.price = price;
-    }
-
-    public OrderItemDto() {
-    }
-
-    public OrderItemDto(Long productId, String productTitle, int quantity, BigDecimal pricePerProduct, BigDecimal price) {
-        this.productId = productId;
-        this.productTitle = productTitle;
-        this.quantity = quantity;
-        this.pricePerProduct = pricePerProduct;
-        this.price = price;
+    public void setTotalPrice(BigDecimal totalPrice) {
+        this.totalPrice = totalPrice;
     }
 }

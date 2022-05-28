@@ -13,6 +13,7 @@ import ru.geekbrains.march.market.auth.entities.User;
 import ru.geekbrains.march.market.auth.repositories.UserRepository;
 
 import java.util.Collection;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -31,5 +32,17 @@ public class UserService implements UserDetailsService {
         return roles.stream().map(role -> new SimpleGrantedAuthority(role.getName())).collect(Collectors.toList());
     }
 
+    public Optional<User> findByUsername(String username) {
+        return userRepository.findByUsername(username);
+    }
+
+    @Transactional
+    public User findIdByUsername(String username){
+        return userRepository.findIdByUsername(username).get();
+    }
+
+    public void saveNewUser(User user){
+        userRepository.save(user);
+    }
 
 }

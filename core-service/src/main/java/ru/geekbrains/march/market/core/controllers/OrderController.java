@@ -17,12 +17,12 @@ public class OrderController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public void createNewOrder(@RequestHeader String username) {
-        orderService.createOrder(username);
+    public void createNewOrder(@RequestHeader String username, @RequestBody OrderDto orderDto) {
+        orderService.createOrder(username, orderDto.getAddress(), orderDto.getPhoneNumber());
     }
 
     @GetMapping
-    public List<OrderDto> getAllOrderItems(@RequestHeader String username) {
-        return orderService.getAllOrderItems(username);
+    public List<OrderDto> getOrder(@RequestHeader String username) {
+        return orderService.getOrder(username);
     }
 }
