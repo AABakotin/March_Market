@@ -36,6 +36,14 @@
         <div>
             <form class="row g-3" ng-submit="createOrder()">
                 <div class="col-auto">
+                    <button type="submit" class="btn btn-primary"  ng-show="isUserLoggedIn()" align=”left”>Создать заказ</button>
+                    <button class="btn btn-secondary" ng-click="guestCreateOrder()" ng-show="!isUserLoggedIn()">Оформить заказ</button>
+                </div>
+            </form>
+        </div>
+        <div>
+            <form class="row g-3" ng-submit="createNewOrder()">
+                <div class="col-auto">
                     <input type="text" class="form-control"  ng-model="newOrder.address"
                            placeholder="Адрес">
                 </div>
@@ -43,17 +51,6 @@
                     <input type="text" class="form-control"  ng-model="newOrder.phoneNumber"
                            placeholder="Номер телефона">
                 </div>
-
-                <div class="col-auto">
-                    <button type="submit" class="btn btn-primary"  ng-show="isUserLoggedIn()"
-                            align=”left”>Создать заказ
-                    </button>
-                    <button class="btn btn-secondary" ng-click="guestCreateOrder()" ng-show="!isUserLoggedIn()">Оформить заказ
-                    </button>
-
-                </div>
-            </form>
-        </div>
         <div ng-show="cart.items.length == 0">
             <p>Ваша корзина пуста</p>
         </div>

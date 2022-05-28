@@ -4,16 +4,13 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.geekbrains.march.market.api.CartDto;
-import ru.geekbrains.march.market.api.CartItemDto;
 import ru.geekbrains.march.market.api.OrderDto;
 import ru.geekbrains.march.market.core.converters.OrderConverter;
 import ru.geekbrains.march.market.core.entities.Order;
 import ru.geekbrains.march.market.core.entities.OrderItem;
-import ru.geekbrains.march.market.core.entities.Product;
 import ru.geekbrains.march.market.core.integrations.CartServiceIntegration;
 import ru.geekbrains.march.market.core.repositories.OrderRepository;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -34,9 +31,9 @@ public class OrderService {
         }
         Order order = new Order();
         order.setUsername(username);
-        order.setAddress(address);
-        order.setPhoneNumber(phoneNumber);
         order.setTotalPrice(cartDto.getTotalPrice());
+        order.setPhoneNumber(phoneNumber);
+        order.setAddress(address);
         List<OrderItem> items = cartDto.getItems().stream()
                 .map(o -> {
                     OrderItem item = new OrderItem();
@@ -49,7 +46,7 @@ public class OrderService {
                 }).collect(Collectors.toList());
         order.setItems(items);
         orderRepository.save(order);
-        cartServiceIntegration.clearCart();
+        cartServiceIntegration.clearCart(username);
     }
 
     public List<OrderDto> getOrder(String username) {
