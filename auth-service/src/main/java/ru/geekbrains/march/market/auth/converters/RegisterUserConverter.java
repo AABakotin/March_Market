@@ -17,13 +17,13 @@ public class RegisterUserConverter {
     private final PasswordEncoder passwordEncoder;
     private final RoleService roleService;
 
-    public User dtoToUserEntity(RegisterUserDto registrUserDto){
+    public User dtoToUserEntity(RegisterUserDto registerUserDto){
         List<Role> list = new ArrayList<>();
         list.add(roleService.getUserRole());
         User user = new User();
-        user.setUsername(registrUserDto.getUsername());
-        user.setPassword(passwordEncoder.encode(registrUserDto.getPassword()));
-        user.setEmail(registrUserDto.getEmail());
+        user.setUsername(registerUserDto.getUsername());
+        user.setPassword(passwordEncoder.encode(registerUserDto.getPassword()));
+        user.setEmail(registerUserDto.getEmail());
         user.setRoles(list);
         return user;
     }

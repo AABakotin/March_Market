@@ -1,7 +1,7 @@
 angular.module('market').controller('cartController', function ($scope, $http, $localStorage) {
 
 const contextPathCart = 'http://localhost:5555/cart/api/v1/cart/' + $localStorage.marchMarketGuestCartId;
-const contextPath = 'http://localhost:5555/core/api/v1';
+const contextPath = 'http://localhost:5555/core/api/v1/order';
 
     $scope.fillTableCart = function () {
         $http.get(contextPathCart)
@@ -34,7 +34,7 @@ const contextPath = 'http://localhost:5555/core/api/v1';
             };
 
     $scope.createOrder = function () {
-        $http.post(contextPath + '/order', $scope.newOrder)
+        $http.post(contextPath, $scope.newOrder)
             .then(function (response) {
              console.log(response);
               alert("Заказ успешно сформирован");

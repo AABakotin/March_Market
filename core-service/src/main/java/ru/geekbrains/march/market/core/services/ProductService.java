@@ -1,14 +1,21 @@
 package ru.geekbrains.march.market.core.services;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
+import ru.geekbrains.march.market.api.PageDto;
 import ru.geekbrains.march.market.api.ProductDto;
+import ru.geekbrains.march.market.core.converters.PageConverter;
 import ru.geekbrains.march.market.core.converters.ProductConverter;
 import ru.geekbrains.march.market.core.entities.Product;
 import ru.geekbrains.march.market.core.exceptions.ResourceNotFoundException;
 import ru.geekbrains.march.market.core.repositories.ProductRepository;
+import ru.geekbrains.march.market.core.repositories.specifications.ProductsSpecifications;
 
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,6 +25,7 @@ public class ProductService {
     private final ProductRepository productRepository;
     private final CategoryService categoryService;
     private final ProductConverter productConverter;
+    private final PageConverter pageConverter;
 
     public List<ProductDto> findAll() {
         List<ProductDto> productDtos = new ArrayList<>();
@@ -27,7 +35,7 @@ public class ProductService {
         return productDtos;
     }
 
-    public ProductDto showConvertCartItemById(Long id) {
+    public ProductDto getProductDtoById(Long id) {
         return productConverter.entityToDto(findById(id));
     }
 
@@ -53,5 +61,30 @@ public class ProductService {
                                         + productDto.getCategoryTitle() +
                                         " не найдена")));
         productRepository.save(product);
+    }
+    private Page<Product> findAll(int page, int pageSize, Specification<Product> specification) {
+        return productRepository.findAll(specification, PageRequest.of(page, pageSize));
+    }
+
+    public PageDto getProducts(Integer page, Integer pageSize, String titlePart, Integer minPrice, Integer maxPrice) {
+        if (page < 1) {
+            page = 1;
+        }
+
+        Specification<Product> spec = Specification.where(null);
+        if (titlePart != null) {
+            spec = spec.and(ProductsSpecifications.titleLike(titlePart));
+        }
+        if (minPrice != null) {
+            spec = spec.and(ProductsSpecifications.priceGreaterOrEqualsThan(BigDecimal.valueOf(minPrice)));
+        }
+        if (maxPrice != null) {
+            spec = spec.and(ProductsSpecifications.priceLessThanOrEqualsThan(BigDecimal.valueOf(maxPrice)));
+        }
+        PageDto pageDto = pageConverter.pageToDto(findAll(page - 1, pageSize, spec));
+        if (page > pageDto.getTotalPages()) {
+            throw new ResourceNotFoundException("Такой страницы не существует");
+        }
+        return pageDto;
     }
 }

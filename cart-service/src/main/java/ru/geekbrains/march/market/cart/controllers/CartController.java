@@ -29,7 +29,7 @@ public class CartController {
     }
 
     @GetMapping("/{guestCartId}/add/{productId}")
-    public void AddProductToCart(@RequestHeader(required = false) String username, @PathVariable String guestCartId, @PathVariable Long productId) {
+    public void addProductToCart(@RequestHeader(required = false) String username, @PathVariable String guestCartId, @PathVariable Long productId) {
         String currentCartId = selectCartId(username, guestCartId);
         cartService.cartAddProduct(currentCartId, productId);
     }
@@ -52,11 +52,11 @@ public class CartController {
         cartService.clearCart(currentCartId);
     }
 
-    @GetMapping("/{guestCartId}/total")
-    public BigDecimal totalPrice(@RequestHeader(required = false) String username, @PathVariable String guestCartId) {
-        String currentCartId = selectCartId(username, guestCartId);
-        return cartService.totalPrice(currentCartId);
-    }
+//    @GetMapping("/{guestCartId}/total")
+//    public BigDecimal totalPrice(@RequestHeader(required = false) String username, @PathVariable String guestCartId) {
+//        String currentCartId = selectCartId(username, guestCartId);
+//        return cartService.totalPrice(currentCartId);
+//    }
 
     @GetMapping("/{guestCartId}/merge")
     public void mergeCarts (@RequestHeader String username, @PathVariable String guestCartId){

@@ -4,16 +4,44 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="128fa910-b7fb-4890-81fc-15cf822dc4e0" name="Changes" comment="lesson8 - fix">
+    <list default="true" id="128fa910-b7fb-4890-81fc-15cf822dc4e0" name="Changes" comment="lesson8 - merge">
+      <change afterPath="$PROJECT_DIR$/api/src/main/java/ru/geekbrains/march/market/api/PageDto.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cart-service/src/main/java/ru/geekbrains/march/market/cart/configs/RedisConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core-service/src/main/java/ru/geekbrains/march/market/core/converters/PageConverter.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core-service/src/main/java/ru/geekbrains/march/market/core/repositories/specifications/ProductsSpecifications.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/auth-service/src/main/java/ru/geekbrains/march/market/auth/controllers/RegisterController.java" beforeDir="false" afterPath="$PROJECT_DIR$/auth-service/src/main/java/ru/geekbrains/march/market/auth/controllers/RegisterController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/auth-service/src/main/java/ru/geekbrains/march/market/auth/converters/RegisterUserConverter.java" beforeDir="false" afterPath="$PROJECT_DIR$/auth-service/src/main/java/ru/geekbrains/march/market/auth/converters/RegisterUserConverter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/auth-service/target/classes/ru/geekbrains/march/market/auth/controllers/RegisterController.class" beforeDir="false" afterPath="$PROJECT_DIR$/auth-service/target/classes/ru/geekbrains/march/market/auth/controllers/RegisterController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/auth-service/target/classes/ru/geekbrains/march/market/auth/converters/RegisterUserConverter.class" beforeDir="false" afterPath="$PROJECT_DIR$/auth-service/target/classes/ru/geekbrains/march/market/auth/converters/RegisterUserConverter.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cart-service/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/cart-service/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cart-service/src/main/java/ru/geekbrains/march/market/cart/configs/AppConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/cart-service/src/main/java/ru/geekbrains/march/market/cart/configs/AppConfig.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cart-service/src/main/java/ru/geekbrains/march/market/cart/controllers/CartController.java" beforeDir="false" afterPath="$PROJECT_DIR$/cart-service/src/main/java/ru/geekbrains/march/market/cart/controllers/CartController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cart-service/src/main/java/ru/geekbrains/march/market/cart/services/CartService.java" beforeDir="false" afterPath="$PROJECT_DIR$/cart-service/src/main/java/ru/geekbrains/march/market/cart/services/CartService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cart-service/src/main/java/ru/geekbrains/march/market/cart/utils/CartItem.java" beforeDir="false" afterPath="$PROJECT_DIR$/cart-service/src/main/java/ru/geekbrains/march/market/cart/utils/CartItem.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cart-service/src/main/resources/application.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/cart-service/src/main/resources/application.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cart-service/target/classes/application.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/cart-service/target/classes/application.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cart-service/target/classes/ru/geekbrains/march/market/cart/configs/AppConfig.class" beforeDir="false" afterPath="$PROJECT_DIR$/cart-service/target/classes/ru/geekbrains/march/market/cart/configs/AppConfig.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cart-service/target/classes/ru/geekbrains/march/market/cart/controllers/CartController.class" beforeDir="false" afterPath="$PROJECT_DIR$/cart-service/target/classes/ru/geekbrains/march/market/cart/controllers/CartController.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cart-service/target/classes/ru/geekbrains/march/market/cart/services/CartService.class" beforeDir="false" afterPath="$PROJECT_DIR$/cart-service/target/classes/ru/geekbrains/march/market/cart/services/CartService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/front-service/src/main/resources/static/cart/cart.html" beforeDir="false" afterPath="$PROJECT_DIR$/front-service/src/main/resources/static/cart/cart.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cart-service/target/classes/ru/geekbrains/march/market/cart/utils/CartItem.class" beforeDir="false" afterPath="$PROJECT_DIR$/cart-service/target/classes/ru/geekbrains/march/market/cart/utils/CartItem.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core-service/src/main/java/ru/geekbrains/march/market/core/controllers/ProductController.java" beforeDir="false" afterPath="$PROJECT_DIR$/core-service/src/main/java/ru/geekbrains/march/market/core/controllers/ProductController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core-service/src/main/java/ru/geekbrains/march/market/core/converters/ProductConverter.java" beforeDir="false" afterPath="$PROJECT_DIR$/core-service/src/main/java/ru/geekbrains/march/market/core/converters/ProductConverter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core-service/src/main/java/ru/geekbrains/march/market/core/repositories/ProductRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/core-service/src/main/java/ru/geekbrains/march/market/core/repositories/ProductRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core-service/src/main/java/ru/geekbrains/march/market/core/services/ProductService.java" beforeDir="false" afterPath="$PROJECT_DIR$/core-service/src/main/java/ru/geekbrains/march/market/core/services/ProductService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core-service/target/classes/ru/geekbrains/march/market/core/controllers/ProductController.class" beforeDir="false" afterPath="$PROJECT_DIR$/core-service/target/classes/ru/geekbrains/march/market/core/controllers/ProductController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/front-service/src/main/resources/static/cart/cart.js" beforeDir="false" afterPath="$PROJECT_DIR$/front-service/src/main/resources/static/cart/cart.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/front-service/src/main/resources/static/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/front-service/src/main/resources/static/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/front-service/target/classes/static/cart/cart.html" beforeDir="false" afterPath="$PROJECT_DIR$/front-service/target/classes/static/cart/cart.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/front-service/src/main/resources/static/registration/registration.js" beforeDir="false" afterPath="$PROJECT_DIR$/front-service/src/main/resources/static/registration/registration.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/front-service/target/classes/static/cart/cart.js" beforeDir="false" afterPath="$PROJECT_DIR$/front-service/target/classes/static/cart/cart.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/front-service/target/classes/static/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/front-service/target/classes/static/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/front-service/target/classes/static/registration/registration.js" beforeDir="false" afterPath="$PROJECT_DIR$/front-service/target/classes/static/registration/registration.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gateway-service/src/main/resources/application.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/gateway-service/src/main/resources/application.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/order-service/pom.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -30,7 +58,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="lesson8" />
+        <entry key="$PROJECT_DIR$" value="lesson8Fix" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -54,13 +82,6 @@
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
-  <component name="MavenImportPreferences">
-    <option name="generalSettings">
-      <MavenGeneralSettings>
-        <option name="useMavenConfig" value="true" />
-      </MavenGeneralSettings>
-    </option>
-  </component>
   <component name="ProjectId" id="28hTUqAAzTF96jGEntKwSTaeJwQ" />
   <component name="ProjectLevelVcsManager">
     <ConfirmationsSetting value="2" id="Add" />
@@ -69,16 +90,14 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
-    &quot;ASKED_SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;jdk.selected.JAVA_MODULE&quot;: &quot;corretto-11&quot;,
-    &quot;last_opened_file_path&quot;: &quot;E:/Java/March_Market/front-service/src/main/resources/static&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "project.structure.last.edited": "Project",
+    "project.structure.proportion": "0.0",
+    "project.structure.side.proportion": "0.2",
+    "settings.editor.selected.configurable": "preferences.lookFeel"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="E:\Java\March_Market\front-service\src\main\resources\static" />
@@ -94,14 +113,14 @@
       <recent name="E:\Java\March_Market\front-service\src\main\resources\static" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="ru.geekbrains.march.market.core.converters" />
+      <recent name="ru.geekbrains.march.market.api" />
+      <recent name="ru.geekbrains.march.market.core.repositories.specifications" />
       <recent name="ru.geekbrains.march.market.core.repositories" />
       <recent name="ru.geekbrains.march.market.core.services" />
-      <recent name="ru.geekbrains.march.market.api" />
-      <recent name="ru.geekbrains.march.market.auth.converters" />
-      <recent name="ru.geekbrains.march.market.auth.controllers" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.MarchMarketGatewayApplication">
+  <component name="RunManager" selected="Application.MarchMarketCartApplication">
     <configuration name="MarchMarketApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="ru.geekbrains.march.market.core.MarchMarketApplication" />
       <module name="core-service" />
@@ -176,9 +195,9 @@
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.MarchMarketCartApplication" />
         <item itemvalue="Application.MarchMarketGatewayApplication" />
         <item itemvalue="Application.MarchMarketFrontApplication" />
-        <item itemvalue="Application.MarchMarketCartApplication" />
         <item itemvalue="Application.MarchMarketApplication" />
         <item itemvalue="Application.MarchMarketAuthApplication" />
       </list>
@@ -214,8 +233,19 @@
       <option name="project" value="LOCAL" />
       <updated>1652725588430</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="lesson8 - merge">
+      <created>1652728572875</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1652728572875</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
+  </component>
+  <component name="UnknownFeatures">
+    <option featureType="dependencySupport" implementationName="java:jakarta.persistence:jakarta.persistence-api" />
+    <option featureType="dependencySupport" implementationName="java:org.hibernate:hibernate-core" />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
     <option name="TAB_STATES">
@@ -233,6 +263,7 @@
     <MESSAGE value="MicroServices" />
     <MESSAGE value="lesson8" />
     <MESSAGE value="lesson8 - fix" />
-    <option name="LAST_COMMIT_MESSAGE" value="lesson8 - fix" />
+    <MESSAGE value="lesson8 - merge" />
+    <option name="LAST_COMMIT_MESSAGE" value="lesson8 - merge" />
   </component>
 </project>

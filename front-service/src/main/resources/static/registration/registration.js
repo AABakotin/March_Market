@@ -8,7 +8,7 @@ angular.module('market').controller('registrationController', function ($scope, 
                     $location.path('/');
                 });
         } else {
-            alert("пароли не соответствуют друг другу")
+            alert("Пароли не соответствуют друг другу")
         }
 
     };
