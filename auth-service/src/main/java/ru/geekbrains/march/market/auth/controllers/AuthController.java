@@ -1,5 +1,10 @@
 package ru.geekbrains.march.market.auth.controllers;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,12 +23,24 @@ import ru.geekbrains.march.market.auth.utils.JwtTokenUtil;
 
 @RestController
 @RequiredArgsConstructor
+@Tag(name = "Индетификация пользователя", description = "Методы индетификация пользователя")
 public class AuthController {
     private final UserService userService;
     private final JwtTokenUtil jwtTokenUtil;
     private final AuthenticationManager authenticationManager;
     private final UserConverter userConverter;
 
+
+    @Operation(summary = "Индетификация пользователя",
+            responses = {
+                    @ApiResponse(
+                            description = "Пользователь индетифицирован", responseCode = "200"
+                    ),
+                    @ApiResponse(
+                            description = "Пользователь не индетифицирован", responseCode = "401",
+                            content = @Content(schema = @Schema(implementation = AppError.class))
+                    )
+            })
     @PostMapping("/authenticate")
     public ResponseEntity<?> createAuthToken(@RequestBody JwtRequest authRequest) {
         try {
@@ -36,6 +53,12 @@ public class AuthController {
         return ResponseEntity.ok(new JwtResponse(token));
     }
 
+
+    @Operation(summary = "Запрос информации о пользователе",
+            responses = {
+                    @ApiResponse(description = "Информация получена", responseCode = "200",
+                            content = @Content(schema = @Schema(implementation = UserDto.class)))
+            })
     @GetMapping("/info")
     public UserDto aboutCurrentUser(@RequestHeader String username) {
         return userConverter.entityToDto(userService.findIdByUsername(username));

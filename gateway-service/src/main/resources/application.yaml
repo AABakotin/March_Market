@@ -25,7 +25,7 @@ spring:
             - PrefixPath=/market-core
             - JwtAuthFilter
             - name: RequestSize
-                args:
+              args:
                   maxSize: 1000000
         - id: cart-service
           uri: http://localhost:8190

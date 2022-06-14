@@ -3,11 +3,22 @@ angular.module('market').controller('storeController', function ($scope, $http, 
 const contextPathCart = 'http://localhost:5555/cart/api/v1/cart/' + $localStorage.marchMarketGuestCartId;
 const contextPath = 'http://localhost:5555/core/api/v1/';
 
-    $scope.fillTable = function () {
-        $http.get(contextPath + 'products')
-             .then(function (response) {
-                 $scope.products = response.data;
-             });
+    $scope.fillTable = function (page) {
+        $http({
+            url: 'http://localhost:5555/core/api/v1/products',
+            method: 'GET',
+            params: {
+                page: page,
+                title_part: $scope.filter ? $scope.filter.title_part : null,
+                min_price: $scope.filter ? $scope.filter.min_price : null,
+                max_price: $scope.filter ? $scope.filter.max_price : null,
+                page_size: $scope.filter ? $scope.filter.page_size : null,
+            }
+        }).then(function (response) {
+            $scope.productsPage = response.data;
+            $scope.generatePagesList($scope.productsPage.totalPages);
+            console.log($scope.productsPage);
+        });
     };
 
     $scope.addProductToCart = function (id) {
@@ -16,21 +27,13 @@ const contextPath = 'http://localhost:5555/core/api/v1/';
             });
     };
 
-//    $scope.deleteProduct = function (id) {
-//        $http.delete(contextPath + '/products/' + id)
-//             .then(function (response) {
-//                $scope.fillTable();
-//             });
-//    };
-
-//    $scope.createNewProduct = function () {
-//        $http.post(contextPath + '/products', $scope.newProduct)
-//            .then(function (response) {
-//                $scope.newProduct = null;
-//                $scope.fillTable();
-//            });
-//    };
-
-    $scope.fillTable();
+    $scope.generatePagesList = function (totalPages) {
+            out = [];
+            for (let i = 0; i < totalPages; i++) {
+                out.push(i + 1);
+            }
+            $scope.pagesList = out;
+        }
+        $scope.fillTable();
 
 });
