@@ -17,14 +17,13 @@ public class RegisterController {
     private final UserService userService;
     private final RegisterUserConverter registerUserConverter;
 
-    private final PasswordEncoder passwordEncoder;
 
     @PostMapping("/registration")
     @ResponseStatus(HttpStatus.CREATED)
-    public void registrationNewUser(@RequestBody RegisterUserDto registrUserDto) {
-        if (userService.findByUsername(registrUserDto.getUsername()).isPresent()) {
+    public void registrationNewUser(@RequestBody RegisterUserDto registerUserDto) {
+        if (userService.findByUsername(registerUserDto.getUsername()).isPresent()) {
             throw new IllegalStateException("Пользователь с таким именем уже существует");
         }
-        userService.saveNewUser(registerUserConverter.dtoToUserEntity(registrUserDto));
+        userService.saveNewUser(registerUserConverter.dtoToUserEntity(registerUserDto));
     }
 }

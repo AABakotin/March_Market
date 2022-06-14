@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Scope;
 import org.springframework.http.client.reactive.ReactorClientHttpConnector;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.netty.http.client.HttpClient;
@@ -21,6 +22,7 @@ import java.util.concurrent.TimeUnit;
 public class AppConfig {
     private final ProductServiceIntegrationProperties properties;
 
+    @Scope
     @Bean
     public WebClient productServiceWebClient() {
         TcpClient tcpClient = TcpClient
