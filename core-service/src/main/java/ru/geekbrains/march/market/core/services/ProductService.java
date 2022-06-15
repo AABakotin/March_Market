@@ -14,10 +14,7 @@ import ru.geekbrains.march.market.core.exceptions.ResourceNotFoundException;
 import ru.geekbrains.march.market.core.repositories.ProductRepository;
 import ru.geekbrains.march.market.core.repositories.specifications.ProductsSpecifications;
 
-
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -27,13 +24,13 @@ public class ProductService {
     private final ProductConverter productConverter;
     private final PageConverter pageConverter;
 
-    public List<ProductDto> findAll() {
-        List<ProductDto> productDtos = new ArrayList<>();
-        for (Product product : productRepository.findAll()) {
-            productDtos.add(productConverter.entityToDto(product));
-        }
-        return productDtos;
-    }
+//    public List<ProductDto> findAll() {
+//        List<ProductDto> productDtos = new ArrayList<>();
+//        for (Product product : productRepository.findAll()) {
+//            productDtos.add(productConverter.entityToDto(product));
+//        }
+//        return productDtos;
+//    }
 
     public ProductDto getProductDtoById(Long id) {
         return productConverter.entityToDto(findById(id));
