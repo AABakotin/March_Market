@@ -26,7 +26,7 @@ public class CartService {
         return cartConverter.entityToDto(cart);
     }
 
-    public Cart getCurrentCart(String cartId) {
+    private Cart getCurrentCart(String cartId) {
         if (!redisTemplate.hasKey(cartId)) {
             Cart cart = new Cart();
             redisTemplate.opsForValue().set(cartId, cart);

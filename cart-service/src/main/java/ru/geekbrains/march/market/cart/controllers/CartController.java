@@ -78,12 +78,6 @@ public class CartController {
         cartService.clearCart(currentCartId);
     }
 
-//    @GetMapping("/{guestCartId}/total")
-//    public BigDecimal totalPrice(@RequestHeader(required = false) String username, @PathVariable String guestCartId) {
-//        String currentCartId = selectCartId(username, guestCartId);
-//        return cartService.totalPrice(currentCartId);
-//    }
-
     @Operation(summary = "Объединение гостевой корзины и корзины зарегистрированного пользователя")
     @GetMapping("/{guestCartId}/merge")
     public void mergeCarts (@RequestHeader String username, @PathVariable String guestCartId){

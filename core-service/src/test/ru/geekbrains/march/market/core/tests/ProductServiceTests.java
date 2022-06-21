@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import ru.geekbrains.march.market.api.ProductDto;
+import ru.geekbrains.march.market.core.converters.PageConverter;
+import ru.geekbrains.march.market.core.converters.ProductConverter;
 import ru.geekbrains.march.market.core.entities.Category;
 import ru.geekbrains.march.market.core.repositories.ProductRepository;
 import ru.geekbrains.march.market.core.services.CategoryService;
@@ -25,6 +27,12 @@ public class ProductServiceTests {
     private ProductRepository productRepository;
 
     @MockBean
+    ProductConverter productConverter;
+
+    @MockBean
+    PageConverter pageConverter;
+
+    @MockBean
     private CategoryService categoryService;
 
     @Test
@@ -35,9 +43,9 @@ public class ProductServiceTests {
         category.setProducts(Collections.emptyList());
         Mockito.doReturn(Optional.of(category))
                 .when(categoryService)
-                .findByTitle("Еда");
+                .findIdByTitle("Еда");
 
-        ProductDto productDto = new ProductDto(null, "Апельсины", BigDecimal.valueOf(100.0), "Food");
+        ProductDto productDto = new ProductDto(null, "Апельсины", BigDecimal.valueOf(100.0), "Еда");
         productService.createNewProduct(productDto);
 
         Mockito.verify(productRepository, Mockito.times(1)).save(ArgumentMatchers.any());

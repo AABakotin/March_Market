@@ -34,24 +34,24 @@ public class CartControllerTest {
     @Test
     public void addProductCartTest() throws Exception {
         Mockito.doReturn(
-                        new ProductDto(1L, "Orange", BigDecimal.valueOf(100), "Food"))
+                        new ProductDto(1L, "Хлеб", BigDecimal.valueOf(32.00), "Еда"))
                 .when(productServiceIntegration)
                 .findById(1L);
 
         mvc.perform(
-                get("/api/v1/cart/add/1")
+                get("/api/v1/cart/63c88786-0d7a-4731-9bfa-cee9dd7cbffb/add/1")
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
 
 
-        mvc.perform(get("/api/v1/cart")
+        mvc.perform(get("/api/v1/cart/63c88786-0d7a-4731-9bfa-cee9dd7cbffb/")
                         .contentType(MediaType.APPLICATION_JSON)
                 )
                 .andDo(print())
                 .andExpect(jsonPath("$.items").isArray())
                 .andExpect(jsonPath("$.items", hasSize(1)));
 
-        mvc.perform(get("/api/v1/cart/delete/1")
+        mvc.perform(get("/api/v1/cart/63c88786-0d7a-4731-9bfa-cee9dd7cbffb/remove/1")
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
     }

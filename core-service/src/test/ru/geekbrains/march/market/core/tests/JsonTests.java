@@ -21,19 +21,6 @@ public class JsonTests {
         category.setId(1L);
         category.setTitle("Еда");
         category.setProducts(Collections.emptyList());
-        // {
-        //   "id": 1,
-        //   "title": "Еда"
-        //   "products": [
-        //     {
-        //       "id": 10,
-        //       "title": "Pineapple",
-        //       "price": 120.00
-        //     }
-        //   ]
-        // }
-        // $.products[0].title -> Pineapple
-
         assertThat(jackson.write(category))
                 .hasJsonPathNumberValue("$.id")
                 .extractingJsonPathStringValue("$.title").isEqualTo("Еда");
