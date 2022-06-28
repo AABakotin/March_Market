@@ -26,21 +26,12 @@
             <tr>
                 <td></td>
                 <td>Итого:</td>
+                <td></td>
                 <td>{{cart.totalPrice}}</td>
+                <td><button type="button" class="btn btn-danger" ng-click="clear()" align=”left”>Очистить корзину</button></td>
             </tr>
             </tbody>
         </table>
-        <div>
-            <button type="button" class="btn btn-danger" ng-click="clear()" align=”left”>Очистить корзину</button>
-        </div>
-        <div>
-            <form class="row g-3" ng-submit="createOrder()">
-                <div class="col-auto">
-                    <button type="submit" class="btn btn-primary" ng-show="isUserLoggedIn()" align=”left”>Создать заказ</button>
-                    <button class="btn btn-secondary" ng-click="guestCreateOrder()" ng-show="!isUserLoggedIn()">Оформить заказ</button>
-                </div>
-            </form>
-        </div>
         <div>
             <form class="row g-3" ng-submit="createNewOrder()">
                 <div class="col-auto">
@@ -48,6 +39,10 @@
                 </div>
                 <div class="col-auto">
                     <input type="text" class="form-control"  ng-model="newOrder.phoneNumber" placeholder="Номер телефона">
+                </div>
+                <div class="col-auto">
+                    <button type="submit" class="btn btn-primary" ng-show="isUserLoggedIn()" align=”left”>Создать заказ</button>
+                    <button class="btn btn-secondary" ng-click="guestCreateOrder()" ng-show="!isUserLoggedIn()">Оформить заказ</button>
                 </div>
             </form>
         </div>

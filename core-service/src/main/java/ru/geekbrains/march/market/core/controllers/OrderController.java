@@ -19,7 +19,6 @@ import java.util.List;
 public class OrderController {
     private final OrderService orderService;
 
-
     @Operation(
             summary = "Запрос на создание нового заказа",
             responses = {
@@ -28,6 +27,7 @@ public class OrderController {
                     )
             }
     )
+
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public void createNewOrder(@RequestHeader String username, @RequestBody OrderDto orderDto) {

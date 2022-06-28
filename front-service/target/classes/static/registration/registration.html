@@ -2,23 +2,23 @@
     <form ng-submit="tryToRegistration()" ng-show="!isUserLoggedIn()">
         <div class="container">
             <h1>Регистрация</h1>
-            <p>Пожалуйста заполните форму для регистрации на сайте</p>
+            <p><b>Пожалуйста заполните форму для регистрации на сайте:</b></p>
             <hr>
             <p>
-            <label ><b>Имя пользователя</b></label>
-            <input ng-model="newUser.username" type="text" placeholder="Имя пользователя" >
+            <label>Имя пользователя</label>
+            <input class="form-control" ng-model="newUser.username" type="text" placeholder="Имя пользователя" >
             <p>
-            <label ><b>Электронная почта</b></label>
-            <input ng-model="newUser.email" type="text" placeholder="email" >
+            <label>Электронная почта</label>
+            <input class="form-control" ng-model="newUser.email" type="text" placeholder="email" >
             <p>
-            <label ><b>Пароль</b></label>
-            <input ng-model="newUser.password" type="password" placeholder="Введите пароль" >
+            <label>Пароль</label>
+            <input class="form-control" ng-model="newUser.password" type="password" placeholder="Введите пароль" >
             <p>
-            <label ><b>Повторите пароль</b></label>
-            <input ng-model="newUser.confirmPassword" type="password" placeholder="Повторите пароль" >
+            <label>Повторите пароль</label>
+            <input class="form-control" ng-model="newUser.confirmPassword" type="password" placeholder="Повторите пароль" >
             <hr>
             <p>
-            <button type="submit" class="registerbtn">Зарегистрироваться</button>
+            <button type="submit" class="btn btn-primary">Зарегистрироваться</button>
         </div>
         <div ng-show="isUserLoggedIn()">
             <h3>Вы уже зарегистрированны</h3>

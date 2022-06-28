@@ -30,7 +30,7 @@ public class CategoryRepositoryTest {
         entityManager.flush();
 
         List<Category> categoriesList = categoryRepository.findAll();
-        Assertions.assertEquals(4, categoriesList.size());
+        Assertions.assertEquals(3, categoriesList.size());
         Assertions.assertEquals("Еда", categoriesList.get(0).getTitle());
     }
 }
